@@ -11,6 +11,7 @@ export default function () {
 
   useEffect(() => {
     dispatch(getHomePageVideos(false));
+    console.log(videos)
   }, [dispatch]);
   return (
     <div className="max-h-screen overflow-hidden">
