@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { getHomePageVideos } from "../store/reducers/getHomePageVideos";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Spinner from "../components/Spinner";
 
 export default function () {
   const dispatch = useAppDispatch();
@@ -11,7 +13,7 @@ export default function () {
 
   useEffect(() => {
     dispatch(getHomePageVideos(false));
-    console.log(videos)
+    console.log(videos);
   }, [dispatch]);
   return (
     <div className="max-h-screen overflow-hidden">
@@ -20,6 +22,7 @@ export default function () {
       </div>
       <div className="flex" style={{ height: "92.5vh" }}>
         <Sidebar />
+        <Spinner />
       </div>
     </div>
   );

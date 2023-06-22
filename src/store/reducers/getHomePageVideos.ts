@@ -19,6 +19,6 @@ export const getHomePageVideos = createAsyncThunk(
       `${YOUTUBE_API_URL}/search?maxResults=20&q="reactjs projects"&key=${API_KEY}&part=snippet&type=video`
     );
     const parsedData: HomePageVideos[] = await parseData(items)
-    return {parseData:[...videos, ...parsedData], nextPageToken}
+    return {parsedData:[...videos, ...parsedData], nextPageToken}
   }
 );
