@@ -13,7 +13,6 @@ export default function () {
 
   useEffect(() => {
     dispatch(getHomePageVideos(false));
-    console.log(videos);
   }, [dispatch]);
   return (
     <div className="max-h-screen overflow-hidden">
@@ -22,7 +21,16 @@ export default function () {
       </div>
       <div className="flex" style={{ height: "92.5vh" }}>
         <Sidebar />
-        <Spinner />
+        {videos.length ? (
+          <InfiniteScroll
+            dataLength={videos.length}
+            next={() => dispatch(getHomePageVideos(true))}
+            hasMore={videos.length < 500}
+            loader={<Spinner />}
+          ></InfiniteScroll>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );
