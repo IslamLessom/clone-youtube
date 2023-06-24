@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { getHomePageVideos } from "../store/reducers/getHomePageVideos";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../components/Spinner";
+import { HomePageVideos } from "../Types";
+import Card from "../components/Card";
 
 export default function () {
   const dispatch = useAppDispatch();
@@ -27,7 +29,14 @@ export default function () {
             next={() => dispatch(getHomePageVideos(true))}
             hasMore={videos.length < 500}
             loader={<Spinner />}
-          ></InfiniteScroll>
+            height={650}
+          >
+            <div className="grid gap-y-14 gap-x-8  grid-cols-4 p-8">
+              {videos.map((item: HomePageVideos) => {
+                return <Card data={item} key={item.videoId} />;
+              })}
+            </div>
+          </InfiniteScroll>
         ) : (
           <Spinner />
         )}
