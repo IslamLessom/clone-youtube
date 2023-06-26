@@ -8,14 +8,22 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../components/Spinner";
 import { HomePageVideos } from "../Types";
 import Card from "../components/Card";
+import { clearVideos } from "../store";
 
 export default function () {
   const dispatch = useAppDispatch();
   const videos = useAppSelector((state) => state.youtubeApp.videos);
 
   useEffect(() => {
+    return () => {
+      dispatch(clearVideos());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(getHomePageVideos(false));
   }, [dispatch]);
+
   return (
     <div className="max-h-screen overflow-hidden">
       <div style={{ height: "7.5vh" }}>
@@ -29,7 +37,7 @@ export default function () {
             next={() => dispatch(getHomePageVideos(true))}
             hasMore={videos.length < 500}
             loader={<Spinner />}
-            height={650}
+            height={1000}
           >
             <div className="grid gap-y-14 gap-x-8  grid-cols-4 p-8">
               {videos.map((item: HomePageVideos) => {
